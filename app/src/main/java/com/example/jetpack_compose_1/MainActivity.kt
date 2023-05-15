@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -27,7 +28,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen() {
-    val (height, setHeight) = remember {
+    val (height, setHeight) = rememberSaveable{
+        mutableStateOf("")
+    }
+    val (weight, setWeight) = rememberSaveable{
         mutableStateOf("")
     }
     Scaffold(
@@ -48,8 +52,8 @@ fun HomeScreen() {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             )
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = weight,
+                onValueChange = setWeight,
                 label = { Text(text = "몸무게")},
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
